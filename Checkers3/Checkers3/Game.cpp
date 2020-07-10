@@ -38,7 +38,7 @@ Game::Game(const Game& game)
     {
         for (int x = 0; x < game.field.sizeX; x++)
         {
-            switch (game.field.data[y][x]->type)
+            switch (game.field.data[y][x]->getType())
             {
             case CheckerType::NONE:
                 this->field.data[y][x] = new Checker(*game.field.data[y][x]);
@@ -88,6 +88,7 @@ void Game::printField()
 void Game::changeTurn()
 {
     this->turn = this->turn == CheckerColor::WHITE ? CheckerColor::BLACK : CheckerColor::WHITE;
+    this->isTurnChanged = false;
 }
 
 vector<Step> Game::getAllPossiblePositions()
@@ -165,9 +166,14 @@ void Game::makeStep(Step step)
 
     if (nextTurn)
     {
-        this->changeTurn();
+        //this->changeTurn();
         this->isTurnChanged = true;
         currentPos = Position();
     }
     else this->isTurnChanged = false;
+}
+
+int Game::getEnemyCount()
+{
+    return this->turn == CheckerColor::WHITE ? blackCount : whiteCount;
 }

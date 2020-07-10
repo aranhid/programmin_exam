@@ -30,5 +30,6 @@ public:
     void changeTurn();
     vector<Step> getAllPossiblePositions();
     void makeStep(Step step);
+    int getEnemyCount();
 };
 
